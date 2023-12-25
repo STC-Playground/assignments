@@ -58,25 +58,7 @@ public class SATOOneCheck extends AppCompatActivity {
 
         resultImg = findViewById(R.id.resultImg);
 
-//        scan1.setShowSoftInputOnFocus(false);
-//        scan2.setShowSoftInputOnFocus(false);
-
         scan1.requestFocus();
-
-
-//        scan1.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-//            @Override
-//            public boolean onEditorAction(TextView v, int actionId, KeyEvent keyEvent) {
-//                if (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_NEXT ||
-//                        (keyEvent != null && keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-//                    text1 = scan1.getText().toString().trim();
-//                    Log.d("text1", text1);
-//                    scan1.clearFocus();
-//                    return true;
-//                }
-//                return false;
-//            }
-//        });
 
         scan1.setOnKeyListener(new View.OnKeyListener() {
 
@@ -94,24 +76,22 @@ public class SATOOneCheck extends AppCompatActivity {
         scan2.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-//                    text2 = scan2.getText().toString();
-//                    if (text1.equals(text2)) {
-//                        resultImg.setImageResource(R.drawable.ic_check_144);
-//                    }
-//                    else {
-//                        resultImg.setImageResource(R.drawable.ic_cancel_144);
-//                    }
-//                    Log.d("text2",text2);
-//                    hideSoftKeyboard(v);
-//                    scan1.setText("");
-//                    scan2.setText("");
+                if ((event.getAction() == KeyEvent.ACTION_UP) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    text2 = scan2.getText().toString();
+                    if (text1.equals(text2)) {
+                        resultImg.setImageResource(R.drawable.ic_check_144);
+                    }
+                    else {
+                        resultImg.setImageResource(R.drawable.ic_cancel_144);
+                    }
+                    Log.d("text2",text2);
+                    hideSoftKeyboard(v);
+                    scan1.setText("");
+                    scan2.setText("");
 
                     scan1.requestFocus();
 
-
-
-                    // new bgThread().start();
+                     new bgThread().start();
 
                     return true;
                 }
