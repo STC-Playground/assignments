@@ -9,19 +9,25 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ttpkk.assignments.MainActivity;
 import com.ttpkk.assignments.R;
 import com.ttpkk.assignments.assignment2.DB.AppDatabase;
 import com.ttpkk.assignments.assignment2.adapter.MyCustomAdapter;
@@ -37,8 +43,7 @@ public class SATOOneCheck extends AppCompatActivity {
     EditText scan1,scan2;
     ImageView resultImg;
     Button clearBtn, resultBtn;
-
-    MyCustomAdapter adapter;
+    String text1,text2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,30 +58,64 @@ public class SATOOneCheck extends AppCompatActivity {
 
         resultImg = findViewById(R.id.resultImg);
 
-        scan1.setShowSoftInputOnFocus(false);
-        scan2.setShowSoftInputOnFocus(false);
-        scan2.addTextChangedListener(new TextWatcher() {
+//        scan1.setShowSoftInputOnFocus(false);
+//        scan2.setShowSoftInputOnFocus(false);
+
+        scan1.requestFocus();
+
+
+//        scan1.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//            @Override
+//            public boolean onEditorAction(TextView v, int actionId, KeyEvent keyEvent) {
+//                if (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_NEXT ||
+//                        (keyEvent != null && keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+//                    text1 = scan1.getText().toString().trim();
+//                    Log.d("text1", text1);
+//                    scan1.clearFocus();
+//                    return true;
+//                }
+//                return false;
+//            }
+//        });
+
+        scan1.setOnKeyListener(new View.OnKeyListener() {
+
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                String text1 = scan1.getText().toString().trim();
-                String text2 = s.toString().trim();
-
-                if (text1.equals(text2)) {
-                    resultImg.setImageResource(R.drawable.ic_check_144);
-                } else {
-                    resultImg.setImageResource(R.drawable.ic_cancel_144);
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    text1 = scan1.getText().toString();
+                    Log.d("text1",text1);
+                    return true;
                 }
-                new bgThread().start();
+                return false;
+            }
+        });
+
+        scan2.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+//                    text2 = scan2.getText().toString();
+//                    if (text1.equals(text2)) {
+//                        resultImg.setImageResource(R.drawable.ic_check_144);
+//                    }
+//                    else {
+//                        resultImg.setImageResource(R.drawable.ic_cancel_144);
+//                    }
+//                    Log.d("text2",text2);
+//                    hideSoftKeyboard(v);
+//                    scan1.setText("");
+//                    scan2.setText("");
+
+                    scan1.requestFocus();
+
+
+
+                    // new bgThread().start();
+
+                    return true;
+                }
+                return false;
             }
         });
 
@@ -97,17 +136,29 @@ public class SATOOneCheck extends AppCompatActivity {
     public void setClearBtn() {
         scan1.setText("");
         scan2.setText("");
+        scan1.requestFocus();
+        resultImg.setImageResource(0);
     }
 
 
+
+    private void hideSoftKeyboard(View view) {
+        // Hide the soft keyboard
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
     class bgThread extends Thread {
+
         public void run() {
             super.run();
             AppDatabase db = Room.databaseBuilder(getApplicationContext(),
                    AppDatabase.class,
                     "room_db").build();
-            String text1 = scan1.getText().toString().trim();
-            String text2 = scan2.getText().toString().trim();
+//            String text1 = scan1.getText().toString().trim();
+//            String text2 = scan2.getText().toString().trim();
             ItemDao itemDao  = db.itemDao();
             if (!text1.equals("") && !text2.equals("")) {
                 itemDao.insertItem(new Item(
@@ -116,7 +167,6 @@ public class SATOOneCheck extends AppCompatActivity {
                         System.currentTimeMillis(),
                         text1.equals(text2)));
             }
-
         }
     }
 

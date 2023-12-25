@@ -11,7 +11,7 @@ import java.util.List;
 public interface ItemDao {
 
     @Insert
-    void insertItem(Item...items);
+    void insertItem(Item item);
 
     @Query("SELECT * FROM Items ORDER BY timestamp DESC")
     List<Item> getAllItems();
