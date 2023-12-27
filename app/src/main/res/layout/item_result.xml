@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/cell_white_bg">
+
+    <LinearLayout
+        android:id="@+id/ln_item"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:maxLines="1"
+            android:padding="8dp"
+            android:layout_weight="1"
+            android:id="@+id/tv_box"
+            android:text="BOX0001"
+            android:textSize="12sp"
+            android:textColor="@color/brandeis_blue"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:padding="8dp"
+            android:maxLines="1"
+            android:id="@+id/tv_part"
+            android:text="QIUU-123454"
+            android:layout_weight="1"
+            android:textSize="12sp"
+            android:textColor="@color/vermilion_red"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:padding="8dp"
+            android:id="@+id/tv_timestamp"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textStyle="bold"
+            android:text="01/01/2024\n10:12:10"
+            android:textColor="@color/silver"
+            android:textSize="12sp"
+            android:gravity="end"
+            android:maxLines="2"/>
+
+    </LinearLayout>
+
+    <View
+        app:layout_constraintTop_toBottomOf="@id/ln_item"
+        android:id="@+id/divider_item"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/seasalt"
+        android:layout_marginHorizontal="12dp" />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
