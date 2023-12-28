@@ -1,11 +1,21 @@
 package com.ttpkk.assignments.assignment3
 
 import ItemAdapter
+import android.app.Dialog
+import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Message
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
+import android.view.Window
+import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
+import android.widget.Button
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ttpkk.assignments.R
@@ -26,10 +36,14 @@ class ScanActivity : AppCompatActivity(), View.OnKeyListener {
         binding = ActivityScanBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.rvItem.setHasFixedSize(true)
+//        binding.rvItem.setHasFixedSize(true)
+
+        binding.edtBox.post {
+            binding.edtBox.requestFocus()
+            window.setSoftInputMode((WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE))
+        }
 
         initEvent()
-
         readData()
 
     }
@@ -38,6 +52,29 @@ class ScanActivity : AppCompatActivity(), View.OnKeyListener {
         binding.edtBox.setOnKeyListener(this)
         binding.edtPart.setOnKeyListener(this)
 
+    }
+
+    private fun setCustomDialogBox() {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.error_dialog)
+//        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        val btnOK: Button = dialog.findViewById(R.id.btn_ok)
+
+        btnOK.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
+
+    }
+
+    private fun clearEdt() {
+        binding.edtBox.setText("")
+        binding.edtPart.setText("")
+        binding.edtBox.requestFocus()
     }
 
 
@@ -92,14 +129,14 @@ class ScanActivity : AppCompatActivity(), View.OnKeyListener {
     override fun onKey(v: View?, keyCode: Int, event: KeyEvent?): Boolean {
         when (v?.id) {
             R.id.edt_box -> {
-                if (keyCode == KeyEvent.KEYCODE_ENTER && event?.action == KeyEvent.ACTION_DOWN) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER && event?.action == KeyEvent.ACTION_UP) {
                     val box = binding.edtBox.text.toString()
                     when {
                         box.isEmpty() -> {
                             binding.edtBox.error = "Please box scan barcode"
                             binding.edtBox.requestFocus()
+                            return true
                         }
-
                         else -> binding.edtPart.requestFocus()
                     }
                 }
@@ -112,15 +149,27 @@ class ScanActivity : AppCompatActivity(), View.OnKeyListener {
                         box.isEmpty() -> {
                             binding.edtBox.error = "Please box scan barcode"
                             binding.edtBox.requestFocus()
+                            return true
                         }
                         part.isEmpty() -> {
                             binding.edtPart.error = "Please part scan barcode"
                             binding.edtPart.requestFocus()
+                            return true
                         }
                         else -> {
-//                            Toast.makeText(this, "Box: $box / Part: $part", Toast.LENGTH_LONG).show()
-                            if (insertData(box,part)) {
-                                readData()
+                            if (box != part) {
+                                setCustomDialogBox()
+                                clearEdt()
+                                return true
+                            }
+                            else  {
+                                if (insertData(box,part)) {
+                                    Toast.makeText(this, "Recorded", Toast.LENGTH_SHORT).show()
+                                    readData()
+                                }
+                                clearEdt()
+                                return true
+
                             }
                         }
                     }
@@ -163,8 +212,9 @@ class ScanActivity : AppCompatActivity(), View.OnKeyListener {
             }
 
             val adapter = ItemAdapter(transactions)
+            binding.rvItem.isEnabled = true
             binding.rvItem.adapter = adapter
-            binding.rvItem.layoutManager = LinearLayoutManager(this)
+            binding.rvItem.layoutManager = LinearLayoutManager(applicationContext)
             Log.i("Get item as array:", transactions.toString())
 
 

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/cell_white_bg">
+    android:background="@drawable/card_item">
 
     <LinearLayout
         android:id="@+id/ln_item"
@@ -14,7 +15,7 @@
         android:layout_height="wrap_content" >
 
         <TextView
-            android:maxLines="1"
+            android:maxLines="2"
             android:padding="8dp"
             android:layout_weight="1"
             android:id="@+id/tv_box"
@@ -28,7 +29,7 @@
 
         <TextView
             android:padding="8dp"
-            android:maxLines="1"
+            android:maxLines="2"
             android:id="@+id/tv_part"
             android:text="QIUU-123454"
             android:layout_weight="1"
@@ -36,6 +37,7 @@
             android:textColor="@color/vermilion_red"
             android:textStyle="bold"
             android:gravity="center"
+            android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
