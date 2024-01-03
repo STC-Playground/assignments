@@ -21,9 +21,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ttpkk.assignments.R
 import com.ttpkk.assignments.databinding.ActivityScanBinding
-import java.sql.Connection
-import java.sql.ResultSet
-import java.sql.SQLException
 import java.sql.Timestamp
 
 class ScanActivity : AppCompatActivity(), View.OnKeyListener {
@@ -71,9 +68,7 @@ class ScanActivity : AppCompatActivity(), View.OnKeyListener {
         btnOK.setOnClickListener {
             dialog.dismiss()
         }
-
         dialog.show()
-
     }
 
     private fun clearEdt() {
@@ -81,55 +76,6 @@ class ScanActivity : AppCompatActivity(), View.OnKeyListener {
         binding.edtPart.setText("")
         binding.edtBox.requestFocus()
     }
-
-
-//    private fun insertData(box: String, part: String) : Boolean {
-//        var conn: Connection? = null
-//
-//        try {
-//            conn = ConnectionClass.openConnection("192.168.0.148","1433","Testy","sa","12345","15")
-//            val parameters = ArrayList<ParameterResult>()
-//            parameters.add(ParameterResult("Box",box))
-//            parameters.add(ParameterResult("Part",part))
-//
-////            val query = "EXEC SP_HT_INSERT @Box = ?, @Part = ?"
-////            val ps = conn?.prepareStatement(query)
-////            ps?.setEscapeProcessing(true)
-////            ps?.queryTimeout = 10
-////            ps?.setString(1,box)
-////            ps?.setString(2,part)
-//
-//            val ps = ConnectionClass.setConnection(conn!!,"SP_HT_INSERT", parameters)
-//
-//            val resultSet = ps.executeQuery()
-//
-//            var isComplete: Boolean = false
-//            var result: String
-//
-//            while (resultSet!!.next()) {
-//                isComplete = resultSet.getBoolean("IsComplete")
-//                result = resultSet.getString("Result")
-////                Toast.makeText(this, "$result", Toast.LENGTH_LONG).show()
-//            }
-//
-//            if (!isComplete) {
-//                return false
-//            } else {
-//                return true
-//            }
-//
-//        } catch (e: SQLException) {
-//            Log.e("Error SQLException:", e.message.toString())
-//            return false
-//
-//        } catch (e: Exception) {
-//            Log.e("Error Exception:", e.message.toString())
-//            return false
-//        } finally {
-//            conn?.close()
-//        }
-//
-//    }
 
     override fun onKey(v: View?, keyCode: Int, event: KeyEvent?): Boolean {
         when (v?.id) {
@@ -162,20 +108,12 @@ class ScanActivity : AppCompatActivity(), View.OnKeyListener {
                             return true
                         }
                         else -> {
-                            if (box != part) {
-                                setCustomDialogBox()
-                                clearEdt()
-                                return true
+                            if (databaseHelper.insertData(box,part)) {
+                                Toast.makeText(this, "Recorded", Toast.LENGTH_SHORT).show()
+                                showData()
                             }
-                            else  {
-                                if (databaseHelper.insertData(box,part)) {
-                                    Toast.makeText(this, "Recorded", Toast.LENGTH_SHORT).show()
-                                    showData()
-                                }
-                                clearEdt()
-                                return true
-
-                            }
+                            clearEdt()
+                            return true
                         }
                     }
                 }
