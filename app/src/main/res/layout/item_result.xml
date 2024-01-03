@@ -3,8 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/card_item">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:id="@+id/ln_item"
@@ -20,7 +19,7 @@
             android:layout_weight="1"
             android:id="@+id/tv_box"
             android:text="BOX0001"
-            android:textSize="12sp"
+            android:textSize="11sp"
             android:textColor="@color/brandeis_blue"
             android:textStyle="bold"
             android:gravity="center"
@@ -33,7 +32,7 @@
             android:id="@+id/tv_part"
             android:text="QIUU-123454"
             android:layout_weight="1"
-            android:textSize="12sp"
+            android:textSize="11sp"
             android:textColor="@color/vermilion_red"
             android:textStyle="bold"
             android:gravity="center"
@@ -50,9 +49,16 @@
             android:textStyle="bold"
             android:text="01/01/2024\n10:12:10"
             android:textColor="@color/silver"
-            android:textSize="12sp"
+            android:textSize="11sp"
             android:gravity="end"
             android:maxLines="2"/>
+
+        <ImageButton
+            android:id="@+id/btn_more"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:src="@drawable/baseline_more_vert_24"/>
 
     </LinearLayout>
 
