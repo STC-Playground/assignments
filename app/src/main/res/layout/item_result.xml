@@ -11,37 +11,44 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/tv_remark">
 
         <TextView
-            android:maxLines="2"
-            android:padding="8dp"
+            android:paddingStart="8dp"
+            android:paddingTop="2dp"
+            android:paddingEnd="2dp"
             android:layout_weight="1"
             android:id="@+id/tv_box"
             android:text="BOX0001"
             android:textSize="11sp"
+            android:maxLines="2"
             android:textColor="@color/brandeis_blue"
             android:textStyle="bold"
-            android:gravity="center"
+            android:gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
         <TextView
-            android:padding="8dp"
-            android:maxLines="2"
+            android:paddingStart="8dp"
+            android:paddingTop="2dp"
+            android:paddingEnd="2dp"
             android:id="@+id/tv_part"
             android:text="QIUU-123454"
             android:layout_weight="1"
+            android:maxLines="2"
             android:textSize="11sp"
             android:textColor="@color/vermilion_red"
             android:textStyle="bold"
-            android:gravity="center"
-            android:layout_gravity="center"
+            android:gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
         <TextView
-            android:padding="8dp"
+            android:paddingStart="8dp"
+            android:paddingTop="2dp"
+            android:paddingEnd="2dp"
+            android:paddingBottom="2dp"
             android:id="@+id/tv_timestamp"
             android:layout_weight="1"
             android:layout_width="match_parent"
@@ -50,8 +57,7 @@
             android:text="01/01/2024\n10:12:10"
             android:textColor="@color/silver"
             android:textSize="11sp"
-            android:gravity="end"
-            android:maxLines="2"/>
+            android:gravity="end" />
 
         <ImageButton
             android:id="@+id/btn_more"
@@ -62,8 +68,23 @@
 
     </LinearLayout>
 
-    <View
+    <TextView
+        android:id="@+id/tv_remark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="2dp"
+        android:text=""
+        android:textSize="9sp"
+        android:paddingStart="8dp"
+        android:textColor="@color/vermilion_red"
         app:layout_constraintTop_toBottomOf="@id/ln_item"
+        app:layout_constraintBottom_toTopOf="@id/divider_item"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="start"/>
+
+    <View
+        app:layout_constraintTop_toBottomOf="@id/tv_remark"
         android:id="@+id/divider_item"
         android:layout_width="match_parent"
         android:layout_height="1dp"

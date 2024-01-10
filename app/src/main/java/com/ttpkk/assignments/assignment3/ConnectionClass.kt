@@ -18,7 +18,7 @@ class ConnectionClass {
 
             try {
                 Class.forName("net.sourceforge.jtds.jdbc.Driver")
-                val connectionURL = "jdbc:jtds:sqlserver://$server:$port;databaseNAme=$database;loginTimeout=$timeout;socketTimeout=$timeout"
+                val connectionURL = "jdbc:jtds:sqlserver://$server:$port;databaseName=$database;loginTimeout=$timeout;socketTimeout=$timeout"
                 conn = DriverManager.getConnection(connectionURL, username,password)
             } catch (ex: SQLException) {
                 Log.e("error SQL exception: ", ex.message.toString())

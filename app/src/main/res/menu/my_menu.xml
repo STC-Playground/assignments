@@ -7,4 +7,9 @@
         android:title="Delete"
         android:id="@+id/menu_delete">
     </item>
+
+    <item
+        android:title="Input Remark"
+        android:id="@+id/menu_remark">
+    </item>
 </menu>
