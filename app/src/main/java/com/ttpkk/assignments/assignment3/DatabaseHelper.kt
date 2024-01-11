@@ -1,22 +1,23 @@
 package com.ttpkk.assignments.assignment3
 
+import android.app.AlertDialog
+import android.content.Context
 import android.util.Log
-import androidx.recyclerview.widget.LinearLayoutManager
+import android.widget.Toast
 import java.sql.Connection
 import java.sql.ResultSet
 import java.sql.SQLException
 
-class DatabaseHelper: DatabaseInterface {
 
-    override fun fetchData() : ArrayList<ScanActivity.Transaction> {
+class DatabaseHelper(private val context: Context) : DatabaseInterface {
+    override fun fetchData() : ArrayList<Transaction> {
         var conn: Connection? = null
-        var transactions = ArrayList<ScanActivity.Transaction>()
+        var transactions = ArrayList<Transaction>()
 
         try {
-            /* Insert  your connection here */
+            conn = ConnectionClass.openConnection("","","","","","")
 
             val ps = ConnectionClass.setConnection(conn!!,"SP_HT_GET_TRANSACTION", null)
-
             val resultSet = ps.executeQuery()
 
             var isComplete: Boolean = false
@@ -32,14 +33,17 @@ class DatabaseHelper: DatabaseInterface {
             ps.moreResults
             val resultSet2: ResultSet = ps.resultSet
             while (resultSet2.next()) {
-                val transaction = ScanActivity.Transaction(
+                val transaction = Transaction(
                     resultSet2.getInt("Seq"),
                     resultSet2.getString("Box"),
                     resultSet2.getString("Part"),
-                    resultSet2.getTimestamp("Timestamp")
+                    resultSet2.getTimestamp("Timestamp"),
+                    resultSet2.getString("Remark")
                 )
                 transactions.add(transaction)
             }
+
+            Log.i("Transaction From DatabaseHelper: ", transactions.toString())
 
             return transactions
 
@@ -47,6 +51,7 @@ class DatabaseHelper: DatabaseInterface {
 
         } catch (e: SQLException) {
             Log.e("Error SQLException:", e.message.toString())
+            showErrorDialog("Error", e.message.toString())
         } catch (e: Exception) {
             Log.e("Error Exception:", e.message.toString())
         } finally {
@@ -58,7 +63,7 @@ class DatabaseHelper: DatabaseInterface {
     override fun deleteData(seq: Int) : Boolean {
         var conn: Connection? = null
         try {
-            /* Insert  your connection here */
+            conn = ConnectionClass.openConnection("","","","","","")
             val parameters = ArrayList<ParameterResult>()
             parameters.add(ParameterResult("Seq",seq))
 
@@ -83,6 +88,7 @@ class DatabaseHelper: DatabaseInterface {
 
         } catch (e: SQLException) {
             Log.e("Error SQLException:", e.message.toString())
+            showErrorDialog("Error", e.message.toString())
             return false
 
         } catch (e: Exception) {
@@ -97,17 +103,10 @@ class DatabaseHelper: DatabaseInterface {
         var conn: Connection? = null
 
         try {
-            /* Insert  your connection here */
+            conn = ConnectionClass.openConnection("","","","","","")
             val parameters = ArrayList<ParameterResult>()
             parameters.add(ParameterResult("Box",box))
             parameters.add(ParameterResult("Part",part))
-
-//            val query = "EXEC SP_HT_INSERT @Box = ?, @Part = ?"
-//            val ps = conn?.prepareStatement(query)
-//            ps?.setEscapeProcessing(true)
-//            ps?.queryTimeout = 10
-//            ps?.setString(1,box)
-//            ps?.setString(2,part)
 
             val ps = ConnectionClass.setConnection(conn!!,"SP_HT_INSERT", parameters)
 
@@ -123,6 +122,7 @@ class DatabaseHelper: DatabaseInterface {
             }
 
             if (!isComplete) {
+                Toast.makeText(this.context,"Duplicated record",Toast.LENGTH_SHORT).show()
                 return false
             } else {
                 return true
@@ -130,6 +130,7 @@ class DatabaseHelper: DatabaseInterface {
 
         } catch (e: SQLException) {
             Log.e("Error SQLException:", e.message.toString())
+            showErrorDialog("Error", e.message.toString())
             return false
 
         } catch (e: Exception) {
@@ -138,6 +139,61 @@ class DatabaseHelper: DatabaseInterface {
         } finally {
             conn?.close()
         }
+    }
+
+    override fun updateRemark(seq:Int,remark: String): Boolean {
+        var conn: Connection? = null
+
+        try {
+            conn = ConnectionClass.openConnection("","","","","","")
+            val parameters = ArrayList<ParameterResult>()
+            parameters.add(ParameterResult("Seq",seq))
+            parameters.add(ParameterResult("Remark",remark))
+
+            val ps = ConnectionClass.setConnection(conn!!,"SP_HT_UPDATE_REMARK", parameters)
+
+            val resultSet = ps.executeQuery()
+
+            var isUpdated: Boolean = false
+            var result: String
+
+            while (resultSet!!.next()) {
+                isUpdated = resultSet.getBoolean("IsUpdated")
+                result = resultSet.getString("Result")
+//                Toast.makeText(this, "$result", Toast.LENGTH_LONG).show()
+            }
+
+            if (!isUpdated) {
+                return false
+            } else {
+                return true
+            }
+
+        } catch (e: SQLException) {
+            Log.e("Error SQLException:", e.message.toString())
+            showErrorDialog("Error", e.message.toString())
+            return false
+
+        } catch (e: Exception) {
+            Log.e("Error Exception:", e.message.toString())
+            return false
+        } finally {
+            conn?.close()
+        }
+
+    }
+
+    private fun showErrorDialog(title: String, message: String) {
+        val alertDialogBuilder = AlertDialog.Builder(context)
+        alertDialogBuilder.setTitle(title)
+        alertDialogBuilder.setMessage(message)
+        alertDialogBuilder.setPositiveButton("OK") { dialog, _ ->
+            // Dismiss the dialog
+            dialog.dismiss()
+        }
+
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
     }
 
 }
