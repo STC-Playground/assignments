@@ -8,22 +8,23 @@
     tools:context=".assignment3.UpdateDialogFragment"
     android:orientation="vertical"
     android:background="@drawable/cell_white_bg"
-    android:layout_marginHorizontal="32dp"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8dp"
     app:backgroundTint="@null">
 
-    <TextView
-        android:id="@+id/tv_remark_header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textStyle="bold"
-        android:textColor="@color/brandeis_blue"
-        android:text="Input Remark"
-        android:layout_margin="16dp"
-        android:gravity="start"
-        android:textAlignment="textStart" />
+<!--    <TextView-->
+<!--        android:id="@+id/tv_remark_header"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        android:textStyle="bold"-->
+<!--        android:textColor="@color/brandeis_blue"-->
+<!--        android:text="Input Remark"-->
+<!--        android:layout_margin="16dp"-->
+<!--        android:gravity="start"-->
+<!--        android:textAlignment="textStart" />-->
 
     <EditText
         android:id="@+id/edt_remark"
@@ -31,45 +32,44 @@
         android:layout_height="match_parent"
         android:backgroundTint="@null"
         android:background="@drawable/card_item"
-        app:layout_constraintTop_toBottomOf="@id/tv_remark_header"
         android:layout_marginHorizontal="16dp"
         android:padding="8dp"
-        android:elevation="16dp"
+        android:elevation="8dp"
         android:textSize="12sp"
+        android:layout_marginVertical="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/ln_btn_update"
         />
 
-    <LinearLayout
-        android:id="@+id/ln_btn_update"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edt_remark"
-        android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="16dp"
-        android:layout_width="wrap_content"
-        android:layout_gravity="end"
-        android:layout_height="wrap_content">
+<!--    <LinearLayout-->
+<!--        android:id="@+id/ln_btn_update"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/edt_remark"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:layout_marginHorizontal="16dp"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_gravity="end"-->
+<!--        android:layout_height="wrap_content">-->
 
-        <Button
-            android:id="@+id/btn_cancel_update"
-            android:text="Cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            app:backgroundTint="@null"
-            android:textColor="@color/brandeis_blue"/>
+<!--        <Button-->
+<!--            android:id="@+id/btn_cancel_update"-->
+<!--            android:text="Cancel"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@color/white"-->
+<!--            app:backgroundTint="@null"-->
+<!--            android:textColor="@color/brandeis_blue"/>-->
 
-        <Button
-            android:id="@+id/btn_ok_update"
-            android:text="OK"
-            android:textColor="@color/brandeis_blue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            app:backgroundTint="@null"/>
+<!--        <Button-->
+<!--            android:id="@+id/btn_ok_update"-->
+<!--            android:text="OK"-->
+<!--            android:textColor="@color/brandeis_blue"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@color/white"-->
+<!--            app:backgroundTint="@null"/>-->
 
-    </LinearLayout>
+<!--    </LinearLayout>-->
 
 
 </LinearLayout>

@@ -82,19 +82,7 @@ class ScanActivity : AppCompatActivity(), View.OnKeyListener {
                             return true
                         }
                         else -> {
-                            if (box == part) {
-                                val alertDialogBuilder = AlertDialog.Builder(this@ScanActivity)
-
-                                alertDialogBuilder.setTitle("Failed")
-                                alertDialogBuilder.setMessage("Box and part are duplicated")
-                                alertDialogBuilder.setPositiveButton("OK") {dialog,_ ->
-                                    dialog.dismiss()
-                                }
-
-                                val alertDialog = alertDialogBuilder.create()
-                                alertDialog.show()
-                            }
-                            else if (databaseHelper.insertData(box,part)) {
+                            if (databaseHelper.insertData(box,part)) {
                                 Toast.makeText(this, "Recorded", Toast.LENGTH_SHORT).show()
                                 showData()
                             }

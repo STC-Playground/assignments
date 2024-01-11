@@ -96,39 +96,7 @@ class ItemAdapter(private val context: Context, private var itemList: ArrayList<
 //                        updateDialogFragment.parentFragment.toString()
 //                        itemList = databaseHelper.fetchData()
 
-                        val dialog = Dialog(context)
-                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-                        dialog.setCancelable(false)
-                        dialog.setContentView(R.layout.fragment_update_dialog)
-                        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
-                        val btnOK = dialog.findViewById<Button>(R.id.btn_ok_update)
-                        val btnCancel = dialog.findViewById<Button>(R.id.btn_cancel_update)
-                        val edtRemark = dialog.findViewById<EditText>(R.id.edt_remark)
-                        val seq = itemList[adapterPosition].seq
-
-//                        Log.d("Remark Update Message", itemList[adapterPosition].seq.toString())
-
-                        btnOK.setOnClickListener {
-                            val remarkTxt = "Remark: " + edtRemark.text.toString()
-//                            Log.d("Remark Update Message", remarkTxt)
-                            if (databaseHelper.updateRemark(seq,remarkTxt)) {
-                                Toast.makeText(context, "Updated", Toast.LENGTH_SHORT).show()
-                                itemList = databaseHelper.fetchData()
-                                notifyDataSetChanged()
-                            }
-
-                            hideSoftKeyboard(it)
-                            dialog.dismiss()
-
-                        }
-
-                        btnCancel.setOnClickListener{
-                            hideSoftKeyboard(it)
-                            dialog.dismiss()
-                        }
-                        dialog.show()
-
+                        showUpdateDialog(databaseHelper,adapterPosition)
 
 //                        Log.d("Remark Menu", itemList[adapterPosition].remark.toString())
                         true
@@ -147,7 +115,10 @@ class ItemAdapter(private val context: Context, private var itemList: ArrayList<
         holder.tvBox.text = item.box
         holder.tvPart.text = item.part
         holder.tvTimestamp.text = convertTime(item.timestamp)
-        holder.tvRemark.text = item.remark
+        if (item.remark != null) {
+            holder.tvRemark.text = "Remark:" +item.remark
+        }
+
 
 //        Log.d("Remark Holder", itemList[position].remark.toString())
     }
@@ -165,6 +136,40 @@ class ItemAdapter(private val context: Context, private var itemList: ArrayList<
         val inputMethodManager =
             context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    private fun showUpdateDialog(databaseHelper: DatabaseInterface, position: Int) {
+        val builder = AlertDialog.Builder(context)
+        val inflater = LayoutInflater.from(context)
+        val view = inflater.inflate(R.layout.fragment_update_dialog, null)
+        val seq = itemList[position].seq
+
+        // Customize the dialog view
+        val edtRemark = view.findViewById<EditText>(R.id.edt_remark)
+        Log.d("Remark ", edtRemark.toString())
+
+        builder.setTitle("Input Remark")
+        builder.setView(view)
+            .setPositiveButton("OK") { dialog, _ ->
+                // Handle positive button click if needed
+                val remarkTxt = "Remark: " + edtRemark.text.toString()
+//                            Log.d("Remark Update Message", remarkTxt)
+                if (databaseHelper.updateRemark(seq,edtRemark.text.toString())) {
+                    Toast.makeText(context, "Updated", Toast.LENGTH_SHORT).show()
+                    itemList = databaseHelper.fetchData()
+                    notifyDataSetChanged()
+                }
+                hideSoftKeyboard(view)
+                dialog.dismiss()
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                // Handle negative button click if needed
+                hideSoftKeyboard(view)
+                dialog.dismiss()
+            }
+
+        val dialog = builder.create()
+        dialog.show()
     }
 
 
