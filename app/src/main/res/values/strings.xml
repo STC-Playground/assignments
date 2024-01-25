@@ -16,4 +16,18 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+
+
+    <!-- SATO -->
+    <string name="SATO">SATO</string>
+    <string name="SATO_products">SATO Products</string>
+    <string name="open_drawer">Open Drawer</string>
+    <string name="close_drawer">Close Drawer</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="txt_back">Back</string>
+    <string name="txt_all_products">All Products</string>
+    <string name="SATO_home">Home</string>
+
+
 </resources>
