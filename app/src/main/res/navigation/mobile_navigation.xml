@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.ttpkk.assignments.assignment4.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/nav_product"
+        android:name="com.ttpkk.assignments.assignment4.ui.product.ProductFragment"
+        android:label="@string/SATO_products"
+        tools:layout="@layout/fragment_product" >
+        <action
+            android:id="@+id/action_nav_product_to_nav_products"
+            app:destination="@id/nav_products" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_category"
+        android:name="com.ttpkk.assignments.assignment4.ui.category.CategoryFragment"
+        android:label="@string/SATO_products"
+        tools:layout="@layout/fragment_category" >
+        <action
+            android:id="@+id/action_nav_category_to_nav_products"
+            app:destination="@id/nav_products" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_products"
+        android:label="@string/SATO_products"
+        android:name="com.ttpkk.assignments.assignment4.ui.products.ProductsFragment"
+        tools:layout="@layout/fragment_products">
+        <action
+            android:id="@+id/action_nav_products_to_nav_product"
+            app:destination="@id/nav_product" />
+        <action
+            android:id="@+id/action_nav_products_to_nav_category"
+            app:destination="@id/nav_category" />
+        <argument
+            android:name="categoryItem"
+            app:argType="com.ttpkk.assignments.assignment4.model.Category" />
+
+    </fragment>
+
+</navigation>

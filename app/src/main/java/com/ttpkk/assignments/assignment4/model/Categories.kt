@@ -4,5 +4,5 @@ import com.google.gson.annotations.SerializedName
 
 data class Categories(
     @SerializedName("Categories")
-    val categories: ArrayList<Category>
+    val categories : ArrayList<Category>
 )

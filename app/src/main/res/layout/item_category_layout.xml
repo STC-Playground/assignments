@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="category"
+            type="com.ttpkk.assignments.assignment4.model.Category" />
+
+        <variable
+            name="product"
+            type="com.ttpkk.assignments.assignment4.model.Product" />
+
+        <variable
+            name="productImage"
+            type="com.ttpkk.assignments.assignment4.model.ProductImage" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:backgroundTint="@null"
+        android:elevation="@dimen/dm_2"
+        android:layout_marginBottom="@dimen/dm_8"
+        android:background="@drawable/cell_white_bg"
+        android:id="@+id/item_products">
+
+        <ImageView
+            app:image="@{productImage}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="@dimen/dm_16"
+            android:layout_marginStart="@dimen/dm_16"
+            android:layout_marginBottom="@dimen/dm_16"
+            android:id="@+id/iv_item"
+            android:layout_width="@dimen/dm_64"
+            android:layout_height="@dimen/dm_64" />
+
+        <LinearLayout
+            android:id="@+id/ln_item"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="@dimen/dm_16"
+            app:layout_constraintStart_toEndOf="@id/iv_item"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:orientation="vertical"
+            android:layout_marginStart="@dimen/dm_16"
+            android:layout_marginEnd="@dimen/dm_16"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="@{category.categoryName}"
+                android:id="@+id/tv_item_header"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_medium"
+                android:textStyle="bold"
+                android:maxLines="2"
+                app:layout_constraintBottom_toTopOf="@id/tv_item_desc"
+                />
+
+            <TextView
+                android:id="@+id/tv_item_desc"
+                android:layout_marginTop="@dimen/dm_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="textStart"
+                android:textSize="@dimen/text_small"
+                android:maxLines="2"
+                android:paddingEnd="@dimen/dm_8"
+                app:layout_constraintTop_toBottomOf="@id/tv_item_header"
+                android:text="@{category.categoryDescription}"
+                android:layout_marginBottom="@dimen/dm_16"
+                android:textColor="@color/dark_gray" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
+

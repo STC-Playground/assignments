@@ -16,15 +16,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Assignments"
         tools:targetApi="31">
-
         <activity
-            android:name="com.ttpkk.assignments.MainActivity"
+            android:name=".HomeActivity"
             android:exported="false"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
+            android:label="@string/title_activity_home"
             android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity
-            android:name="com.ttpkk.assignments.SplashActivity"
+            android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,7 +30,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

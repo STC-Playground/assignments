@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".assignment4.products.ProductFragment">
+    tools:context=".assignment4.ui.product.ProductFragment">
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/img_product"
