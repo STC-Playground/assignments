@@ -22,9 +22,7 @@ class CategoryAdapter(
                 false
             )
     )
-
     override fun onBindViewHolder(holder: CategoriesViewHolder, position: Int) {
-//        holder.itemRecyclerviewLayoutBinding.category = lst.categories[position]
         holder.bind(categories[position],categories[position].products.get(0).productImages.get(0))
         holder.itemCategoryLayoutBinding.root.setOnClickListener {
             listener.onCategoryItemClick(holder.itemCategoryLayoutBinding.root, categories[position])

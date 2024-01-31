@@ -10,6 +10,7 @@
         android:name="com.ttpkk.assignments.assignment4.ui.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
+
     <fragment
         android:id="@+id/nav_product"
         android:name="com.ttpkk.assignments.assignment4.ui.product.ProductFragment"
@@ -18,6 +19,9 @@
         <action
             android:id="@+id/action_nav_product_to_nav_products"
             app:destination="@id/nav_products" />
+        <argument
+            android:name="productItem"
+            app:argType="com.ttpkk.assignments.assignment4.model.Product" />
     </fragment>
     <fragment
         android:id="@+id/nav_category"

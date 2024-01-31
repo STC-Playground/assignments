@@ -4,12 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.ttpkk.assignments.assignment4.model.Category
 import com.ttpkk.assignments.assignment4.model.Product
@@ -21,6 +22,7 @@ class ProductsFragment : Fragment(), ProductItemListener {
     private lateinit var viewModel: ProductsViewModel
     private lateinit var viewModelFactory: ProductsViewModelFactory
     private lateinit var loadingItem: ShimmerFrameLayout
+    private lateinit var srlLayout: SwipeRefreshLayout
 
     private val args : ProductsFragmentArgs by navArgs()
     private lateinit var category: Category
@@ -43,6 +45,7 @@ class ProductsFragment : Fragment(), ProductItemListener {
         super.onActivityCreated(savedInstanceState)
 
         loadingItem = binding.shimmerView
+        srlLayout = binding.srlLayout
 
         category = args.categoryItem
 
@@ -54,15 +57,14 @@ class ProductsFragment : Fragment(), ProductItemListener {
 
         viewModel.apply {
             loadingItem.visibility = View.VISIBLE
+            loadingItem.duration
             loadingItem.startShimmerAnimation()
         }
 
-        viewModel.headerText.observe(viewLifecycleOwner, Observer {
-            binding.tvProductsHeader.text = category.categoryName
-        })
-
         viewModel.products.observe(viewLifecycleOwner, Observer { category ->
 //            Log.d("CATEGORY: ",category.toString())
+
+            binding.tvProductsHeader.text = category.categoryName
             if (category != null) {
                 loadingItem.stopShimmerAnimation()
                 loadingItem.visibility = View.GONE
@@ -74,12 +76,26 @@ class ProductsFragment : Fragment(), ProductItemListener {
                 it.adapter =  ProductsAdapter(category, this)
             }
 
+
         })
+
+        viewModel.isLoading.observe(viewLifecycleOwner) {
+            binding.srlLayout.isRefreshing = it
+        }
+
+        binding.srlLayout.setOnRefreshListener {
+            viewModel.reloadProduct(category)
+        }
     }
 
-    override fun onProductItemClick(view: View, categoryName: String, product: Product) {
-        Toast.makeText(view.context,"YESSSSSS", Toast.LENGTH_SHORT).show()
+    override fun onProductItemClick(view: View, product: Product) {
+        val action = ProductsFragmentDirections.actionNavProductsToNavProduct(product)
+        findNavController().navigate(action)
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
 }

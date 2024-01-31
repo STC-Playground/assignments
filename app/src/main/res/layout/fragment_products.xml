@@ -13,56 +13,65 @@
             type="com.ttpkk.assignments.assignment4.model.Category" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/srl_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".assignment4.ui.products.ProductsFragment">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tv_products_header"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/rv_category"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/text_large"
-            android:textStyle="bold"
-            android:layout_margin="@dimen/dm_16" />
+            android:layout_height="match_parent"
+            tools:context=".assignment4.ui.products.ProductsFragment">
 
-        <com.facebook.shimmer.ShimmerFrameLayout
-            android:id="@+id/shimmer_view"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_products_header"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dm_16">
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/tv_products_header"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/rv_category"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:textSize="@dimen/text_large"
+                android:textStyle="bold"
+                android:layout_margin="@dimen/dm_16" />
 
-                <include layout="@layout/item_layout_placeholder" />
-                <include layout="@layout/item_layout_placeholder" />
-                <include layout="@layout/item_layout_placeholder" />
-                <include layout="@layout/item_layout_placeholder" />
-            </LinearLayout>
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmer_view"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_products_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dm_16">
 
-        </com.facebook.shimmer.ShimmerFrameLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-        <androidx.recyclerview.widget.RecyclerView
-            tools:listitem="@layout/item_category_layout"
-            android:id="@+id/rv_category"
-            android:layout_marginHorizontal="@dimen/dm_16"
-            android:layout_marginBottom="@dimen/dm_16"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_products_header"
-            android:layout_width="0dp"
-            android:layout_height="0dp" />
+                    <include layout="@layout/item_layout_placeholder" />
+                    <include layout="@layout/item_layout_placeholder" />
+                    <include layout="@layout/item_layout_placeholder" />
+                    <include layout="@layout/item_layout_placeholder" />
+                </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                tools:listitem="@layout/item_category_layout"
+                android:id="@+id/rv_category"
+                android:layout_marginHorizontal="@dimen/dm_16"
+                android:layout_marginBottom="@dimen/dm_16"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_products_header"
+                android:layout_width="0dp"
+                android:layout_height="0dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
 </layout>

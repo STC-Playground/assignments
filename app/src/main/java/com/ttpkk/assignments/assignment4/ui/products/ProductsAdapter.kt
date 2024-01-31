@@ -30,17 +30,15 @@ class ProductsAdapter(
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         holder.bind(category.products[position])
         holder.itemProductLayoutBinding.root.setOnClickListener {
-            listener.onProductItemClick(holder.itemProductLayoutBinding.root, category.categoryName, category.products[position])
+            listener.onProductItemClick(holder.itemProductLayoutBinding.root, category.products[position])
         }
 
     }
-
     inner class ProductViewHolder(
         val itemProductLayoutBinding: ItemProductLayoutBinding
     ) : RecyclerView.ViewHolder(itemProductLayoutBinding.root) {
 
         fun bind(product: Product) {
-            itemProductLayoutBinding
             itemProductLayoutBinding.productImage = product.productImages.get(0)
             itemProductLayoutBinding.product = product
             itemProductLayoutBinding.executePendingBindings()

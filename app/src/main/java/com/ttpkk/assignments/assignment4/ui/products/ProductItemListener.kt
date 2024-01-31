@@ -4,5 +4,5 @@ import android.view.View
 import com.ttpkk.assignments.assignment4.model.Product
 
 interface ProductItemListener {
-    fun onProductItemClick(view: View, categoryName: String, product: Product)
+    fun onProductItemClick(view: View, product: Product)
 }

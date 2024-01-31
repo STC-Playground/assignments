@@ -1,63 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".assignment4.ui.product.ProductFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/img_product"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+    <data>
+        <variable
+            name="product"
+            type="com.ttpkk.assignments.assignment4.model.Product" />
+        <variable
+            name="productImage"
+            type="com.ttpkk.assignments.assignment4.model.ProductImage" />
+        <variable
+            name="viewModel"
+            type="com.ttpkk.assignments.assignment4.ui.product.ProductViewModel" />
+    </data>
+
+    <ScrollView
+        android:id="@+id/sv_product"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dm_240" />
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:isScrollContainer="true"
+        android:background="@color/white"
+        tools:context=".assignment4.ui.product.ProductFragment">
 
-    <me.relex.circleindicator.CircleIndicator3
-        app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/img_indicator"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dm_16" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tv_product_header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/dm_24"
-        android:text="Product Name"
-        android:layout_marginTop="@dimen/dm_16"
-        android:layout_marginStart="@dimen/dm_16"
-        android:layout_marginEnd="@dimen/dm_16"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textAlignment="textStart"
-        app:layout_constraintTop_toBottomOf="@id/img_product"/>
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmer_view"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tv_product_description"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:textSize="@dimen/dm_16"
-        android:text="Product Name"
-        android:layout_marginTop="@dimen/dm_16"
-        android:layout_marginStart="@dimen/dm_16"
-        android:layout_marginEnd="@dimen/dm_16"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textAlignment="textStart"
-        app:layout_constraintTop_toBottomOf="@id/tv_product_header"/>
+                    <include layout="@layout/item_product_placeholder" />
 
-    <Button
-        android:id="@+id/btn_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/txt_back"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginBottom="@dimen/dm_32"/>
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+            <LinearLayout
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="100">
+
+                <com.smarteist.autoimageslider.SliderView
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_width="match_parent"
+                    app:sliderAnimationDuration="1000"
+                    app:sliderAutoCycleDirection="back_and_forth"
+                    app:sliderIndicatorAnimationDuration="600"
+                    app:sliderIndicatorEnabled="true"
+                    app:sliderIndicatorGravity="center_horizontal|bottom"
+                    app:sliderScrollTimeInSec="1"
+                    android:layout_height="@dimen/dm_240"
+                    android:id="@+id/iv_product_slider"
+                    android:layout_weight="40"/>
+
+                <TextView
+                    android:layout_marginTop="@dimen/dm_8"
+                    android:id="@+id/tv_product_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/dm_24"
+                    android:text="@{product.productName}"
+                    android:layout_marginStart="@dimen/dm_16"
+                    android:layout_marginEnd="@dimen/dm_16"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textAlignment="textStart"
+                    app:layout_constraintTop_toBottomOf="@id/img_product"
+                    android:layout_weight="20"/>
+
+                <TextView
+                    android:id="@+id/tv_product_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/dm_16"
+                    android:layout_weight="40"
+                    android:text="@{product.productDescription}"
+                    android:layout_marginTop="@dimen/dm_16"
+                    android:layout_marginStart="@dimen/dm_16"
+                    android:layout_marginEnd="@dimen/dm_16"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textAlignment="textStart"
+                    android:layout_marginBottom="@dimen/dm_16"
+                    app:layout_constraintTop_toBottomOf="@id/tv_product_header"/>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</layout>
+

@@ -11,10 +11,6 @@
             type="com.ttpkk.assignments.assignment4.model.Category" />
 
         <variable
-            name="product"
-            type="com.ttpkk.assignments.assignment4.model.Product" />
-
-        <variable
             name="productImage"
             type="com.ttpkk.assignments.assignment4.model.ProductImage" />
 

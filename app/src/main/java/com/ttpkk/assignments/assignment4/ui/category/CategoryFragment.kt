@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.ttpkk.assignments.assignment4.model.Category
 import com.ttpkk.assignments.assignment4.service.CategoriesApi
@@ -22,7 +22,7 @@ class CategoryFragment : Fragment(), CategoryItemListener {
     private lateinit var loadingItem: ShimmerFrameLayout
     private lateinit var viewModel: CategoryViewModel
     private lateinit var viewModelFactory: CategoryViewModelFactory
-    private lateinit var action: NavDirections
+    private lateinit var srlLayout: SwipeRefreshLayout
 
     private var _binding: FragmentCategoryBinding? = null
 
@@ -44,14 +44,13 @@ class CategoryFragment : Fragment(), CategoryItemListener {
         super.onActivityCreated(savedInstanceState)
 
         loadingItem = binding.shimmerView
+        srlLayout = binding.srlLayout
 
         val api = CategoriesApi()
         val repository = CategoriesRepository(api)
 
         viewModelFactory = CategoryViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(CategoryViewModel::class.java)
-
-        viewModel.getCategories()
 
         viewModel.getCategories().apply {
             loadingItem.visibility = View.VISIBLE
@@ -60,13 +59,12 @@ class CategoryFragment : Fragment(), CategoryItemListener {
 
         viewModel.categories.observe(viewLifecycleOwner, Observer { categories ->
 //            Log.d("TAG CATEGORY", categories.categories.toString())
-
             if (categories != null) {
                 loadingItem.stopShimmerAnimation()
                 loadingItem.visibility = View.GONE
             }
 
-            binding.rvCategory.also { it ->
+            binding.rvCategory.also {
                 it.layoutManager = LinearLayoutManager(requireContext())
                 it.setHasFixedSize(true)
                 it.adapter =  CategoryAdapter(categories.categories,this)
@@ -74,18 +72,19 @@ class CategoryFragment : Fragment(), CategoryItemListener {
 
         })
 
-    }
+        viewModel.isLoading.observe(viewLifecycleOwner) {
+            binding.srlLayout.isRefreshing = it
+        }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+        binding.srlLayout.setOnRefreshListener {
+            viewModel.reloadCategories()
+        }
     }
 
     override fun onCategoryItemClick(view: View, category: Category) {
         val action = CategoryFragmentDirections.actionNavCategoryToNavProducts(category)
         findNavController().navigate(action)
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
