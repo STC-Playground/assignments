@@ -35,6 +35,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_category_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/dm_8"
                 android:layout_margin="@dimen/dm_16">
 
                 <LinearLayout
@@ -60,7 +61,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_category_header"
                 android:layout_width="0dp"
-                android:layout_height="0dp" />
+                android:layout_height="0dp"
+                android:paddingHorizontal="@dimen/dm_8"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -21,6 +21,7 @@
         android:layout_height="wrap_content"
         app:backgroundTint="@null"
         android:elevation="@dimen/dm_2"
+        android:layout_marginHorizontal="@dimen/dm_8"
         android:layout_marginBottom="@dimen/dm_8"
         android:background="@drawable/cell_white_bg"
         android:id="@+id/item_category">
