@@ -15,8 +15,8 @@
         android:theme="@style/Theme.Assignments"
         tools:targetApi="31">
         <activity
-            android:name=".assignment3.ScanActivity"
-            android:exported="true" >
+            android:name=".assignment5.SocketActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,7 +26,6 @@
         <activity
             android:name=".MainActivity"
             android:exported="true">
-
         </activity>
     </application>
 
