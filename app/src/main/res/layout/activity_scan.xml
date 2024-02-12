@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".assignment3.ScanActivity"
+    android:background="@color/jordy_blue"
+    android:paddingBottom="32dp"
+    >
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SATO Check Box"
+        android:textSize="28sp"
+        android:layout_margin="32dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        />
+
+    <EditText
+        android:backgroundTint="@null"
+        android:background="@drawable/card_item"
+        android:paddingVertical="12dp"
+        android:paddingHorizontal="16dp"
+        android:textStyle="bold"
+        android:elevation="8dp"
+        android:layout_marginVertical="16dp"
+        android:layout_marginHorizontal="32dp"
+        android:id="@+id/edt_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Scan Box"
+        android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <EditText
+        android:backgroundTint="@null"
+        android:background="@drawable/card_item"
+        android:paddingVertical="12dp"
+        android:paddingHorizontal="16dp"
+        android:textStyle="bold"
+        android:elevation="8dp"
+        android:inputType="text"
+        android:layout_marginVertical="16dp"
+        android:layout_marginHorizontal="32dp"
+        android:id="@+id/edt_part"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Scan Part"
+        app:layout_constraintTop_toBottomOf="@id/edt_box"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:layout_marginVertical="16dp"
+        android:layout_marginHorizontal="32dp"
+        android:id="@+id/tv_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Result"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/edt_part"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="14sp"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ln_rv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginVertical="16dp"
+        android:background="@drawable/card_item"
+        android:elevation="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_result">
+
+        <LinearLayout
+            android:id="@+id/ln_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_box_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="     Box"
+                android:textColor="@color/brandeis_blue"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_part_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="   Part"
+                android:textColor="@color/vermilion_red"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_timestamp_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="Timestamp"
+                android:textColor="@color/silver"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="12dp"
+            android:background="@color/seasalt"
+            app:layout_constraintTop_toBottomOf="@id/ln_header" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_item"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/card_item"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ln_header"
+            app:backgroundTint="@null"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    <!--        <Button-->
+    <!--            app:backgroundTint="@null"-->
+    <!--            android:background="@drawable/btn_back"-->
+    <!--            android:id="@+id/btn_back"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginBottom="32dp"-->
+    <!--            android:text="Back"-->
+    <!--            android:elevation="8dp"-->
+    <!--            android:layout_marginTop="32dp"-->
+    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--            app:layout_constraintEnd_toEndOf="parent"-->
+    <!--            app:layout_constraintStart_toStartOf="parent"-->
+    <!--            app:layout_constraintTop_toBottomOf="@+id/ln_rv" />-->
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
